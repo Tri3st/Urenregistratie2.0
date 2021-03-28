@@ -1,28 +1,39 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Scanner;
 
 class Main {
-  public static void main(String[] args) {
-    LocalDate vandaag = LocalDate.now();
-    LocalTime t1 = LocalTime.of(5, 0);
-    LocalTime t2 = LocalTime.of(4, 30);
-    LocalTime t5 = LocalTime.of(15, 15);
-    LocalTime t6 = LocalTime.of(17, 45);
-    LocalTime p = LocalTime.of(0, 30);
-    
-    Werkdag w1 = new Werkdag(LocalDate.of(2021,3,21), t1, t6, p);
-    Werkdag w2 = new Werkdag(LocalDate.of(2021,3,22), t2, t5, p);
+  public static void main(String[] args)  {
+    String data = "";
+    try {
+      File myObj = new File("uurtjes.txt");
+      Scanner myReader = new Scanner(myObj);
+      while (myReader.hasNextLine()) {
+        data += myReader.nextLine() + "\n";
+      }
+      myReader.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
     WerkdagLijst lijst = new WerkdagLijst();
-    lijst.voegToe(w1);
-    lijst.voegToe(w2);
-    WeekOverzicht week1 = new WeekOverzicht(lijst.geefWeek(11), 11);
-    WeekOverzicht week2 = new WeekOverzicht(lijst.geefWeek(12), 12);
-    MaandOverzicht maand1 = new MaandOverzicht(lijst.geefMaand(3), 3);
-    JaarOverzicht jaar1 = new JaarOverzicht(lijst.geefJaar(2021), 2021);
+
+    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("HH:mm");
+    String[] dataArr =  data.split("\n");
+    for (String st: dataArr) {
+      String[] temp = st.split(" ");
+      Werkdag wtemp = new Werkdag(LocalDate.parse(temp[0], formatDate), LocalTime.parse(temp[1], formatTime),
+              LocalTime.parse(temp[2], formatTime), LocalTime.parse(temp[3], formatTime));
+      lijst.voegToe(wtemp);
+    }
+
+
    System.out.println(lijst);
-   System.out.println(week1);
-   System.out.println(week2);
-    System.out.println(maand1);
-      System.out.println(jaar1);
+
   }
 }
