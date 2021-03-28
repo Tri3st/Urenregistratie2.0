@@ -35,18 +35,27 @@ public class WerkdagLijst {
   }
   
   public ArrayList<Werkdag> geefLijst(Soort soort){
-    
-    return null;
+    ArrayList<Werkdag> sl = new ArrayList<>();
+    for (Werkdag w: werkdagen){
+      if (w.getSoort().equals(soort)) sl.add(w);
+    }
+    return sl;
   }
   
-  public ArrayList<Werkdag> geefMaand(int maand){
-    
-    return null;
+  public ArrayList<Werkdag> geefMaand(int maandnum){
+    ArrayList<Werkdag> ml = new ArrayList<>();
+    for (Werkdag w: werkdagen){
+      if (w.getDatum().getMonthValue()==maandnum) ml.add(w);
+    }
+    return ml;
   }
   
-  public ArrayList<Werkdag> geefJaar(int jaar){
-    
-    return null;
+  public ArrayList<Werkdag> geefJaar(int jaarnum){
+    ArrayList<Werkdag> jl = new ArrayList<>();
+    for(Werkdag w: werkdagen){
+      if (w.getDatum().getYear()==jaarnum) jl.add(w);
+    }
+    return jl;
   }
   
   public String toString(){
