@@ -17,8 +17,9 @@ class Main {
     lijst.voegToe(w2);
     WeekOverzicht week1 = new WeekOverzicht(lijst.geefWeek(12), 12);
     WeekOverzicht week2 = new WeekOverzicht(lijst.geefWeek(13), 13);
-    System.out.println(week1.getGewerkt() + " " + week1.getOveruren());
-    System.out.println(week2.getGewerkt() + " " + week2.getOveruren());
+
    System.out.println(lijst);
+   System.out.println(week1);
+   System.out.println(week2);
   }
 }
